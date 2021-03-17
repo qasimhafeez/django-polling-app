@@ -2,15 +2,16 @@
 <a href="{% url 'polls:index' %}" class="btn btn-secondary btn-sm mb-3"
   >Back to Polls</a
 >
-{% if latest_question_list %} {% for question in latest_question_list %}
+
 <h1 class="text-center mb-3">{{question.question_text}}</h1>
+
 {% if error_message %}
 <p class="alert alert-danger">
   <strong>{{ error_message }}</strong>
 </p>
 {% endif %}
 
-<form action="{% url 'polls:vote' question_id %}" method="post">
+<form action="{% url 'polls:vote' question.id %}" method="post">
   {% csrf_token %} {% for choice in question.choice_set.all %}
   <div class="form-check">
     <input
@@ -25,7 +26,9 @@
   {% endfor %}
   <input
     type="submit"
-    value="Vote"
+    value="vote"
     class="btn btn-success btn-lg btn-block mt-4"
   />
 </form>
+
+{% endblock %}
